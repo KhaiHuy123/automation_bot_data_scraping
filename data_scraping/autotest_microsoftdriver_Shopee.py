@@ -138,6 +138,7 @@ def scrape_Shopee(website):
     shopee_df['location'].fillna('unknown', inplace=True)
     return shopee_df
     pass
+'''OK VERSION BELOW'''
 # def scrape_Shopee(website):
 #     driver.get(website)
 #     time.sleep(3)
