@@ -21,7 +21,7 @@ list_gdp_contries=[
 app_path = os.path.dirname(sys.executable)
 current_day = datetime.now()
 day_month_year = current_day.strftime("%d%m%y")
-path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
+path = "msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
 def get_proxy_ip_and_port():
