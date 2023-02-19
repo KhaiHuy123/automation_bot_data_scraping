@@ -32,7 +32,7 @@ list_world_news = [
     worldnews_TheSun_Website_page1, worldnews_TheSun_Website_page2,
     worldnews_TheSun_Website_page3, worldnews_TheSun_Website_page4, worldnews_TheSun_Website_page5
 ]
-path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
+path = "msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
 options.add_argument("--headless")
