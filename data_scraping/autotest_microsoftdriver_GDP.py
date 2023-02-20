@@ -9,7 +9,6 @@ import os, random
 from bs4 import BeautifulSoup
 from datetime import datetime
 import sys, csv
-
 world_gdp = 'https://tradingeconomics.com/matrix'
 eu_gdp = 'https://tradingeconomics.com/matrix?g=europe'
 asia_gdp = 'https://tradingeconomics.com/matrix?g=asia'
@@ -208,23 +207,14 @@ def create_csv_file(df,file_name):
 def merge_df(dataframes):
     return pd.concat(dataframes, axis=0)
     pass
-df_woirld_gdp = scrape_gdp(website=world_gdp)
-df_america_gdp = scrape_gdp(website=america_gdp)
-df_eu_gdp = scrape_gdp(website=eu_gdp)
-df_asia_gdp = scrape_gdp(website=asia_gdp)
-create_csv_file(df_woirld_gdp, file_name="World_gdp")
-create_csv_file(df_america_gdp, file_name="America_gdp")
-create_csv_file(df_eu_gdp, file_name="EU_gdp")
-create_csv_file(df_asia_gdp, file_name="ASIA_gdp")
-driver.quit()
 
-
-
-
-
-
-
-
-
-
-
+if __name__ == '__main__':
+    df_woirld_gdp = scrape_gdp(website=world_gdp)
+    df_america_gdp = scrape_gdp(website=america_gdp)
+    df_eu_gdp = scrape_gdp(website=eu_gdp)
+    df_asia_gdp = scrape_gdp(website=asia_gdp)
+    create_csv_file(df_woirld_gdp, file_name="World_gdp")
+    create_csv_file(df_america_gdp, file_name="America_gdp")
+    create_csv_file(df_eu_gdp, file_name="EU_gdp")
+    create_csv_file(df_asia_gdp, file_name="ASIA_gdp")
+    driver.quit()
