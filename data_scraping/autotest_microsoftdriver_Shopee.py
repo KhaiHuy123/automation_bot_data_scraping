@@ -182,6 +182,7 @@ def scrape_Shopee_s(list_url):
         list_df.append(df)
     return list_df
     pass
+
 '''OK VERSION BELOW'''
 # def scrape_Shopee(website):
 #     driver.get(website)
@@ -216,10 +217,11 @@ def scrape_Shopee_s(list_url):
 #     return shopee_df
 #     pass
 ''''''
-df_Shopee = scrape_Shopee_s(list_Shopee)
-final_dataframe_Shopee = merge_df(df_Shopee)
-create_csv_file(final_dataframe_Shopee, file_name="Info_Shopee_Product")
-driver.quit()
+if __name__ == '__main__':
+    df_Shopee = scrape_Shopee_s(list_Shopee)
+    final_dataframe_Shopee = merge_df(df_Shopee)
+    create_csv_file(final_dataframe_Shopee, file_name="Info_Shopee_Product")
+    driver.quit()
 
 # Single page version
 # page_shopee = scrape_Shopee(website=Shopee_page7)
