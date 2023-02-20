@@ -27,7 +27,7 @@ list_Shopee = [
     Shopee_page5, Shopee_page6, Shopee_page7, Shopee_page8,
     Shopee_page9, Shopee_page10, Shopee_page11
 ]
-path = "msedgedriver.exe"
+path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
 options.add_argument("--headless")
