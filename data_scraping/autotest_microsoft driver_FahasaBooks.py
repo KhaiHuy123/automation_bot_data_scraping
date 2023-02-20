@@ -27,7 +27,7 @@ list_Fahasa = [
     Fahasa_page5, Fahasa_page6, Fahasa_page7, Fahasa_page8,
     Fahasa_page9, Fahasa_page10, Fahasa_page11
 ]
-path = "msedgedriver.exe"
+path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
 options.add_argument("--headless")
