@@ -65,12 +65,13 @@ def scrape_VieOn_s(list_url):
 def scrape_VieOn(website):
     driver.get(website)
     time.sleep(3)
+    driver.set_page_load_timeout(20)
+    driver.set_script_timeout(20)
     driver.fullscreen_window()
     #for i in range(200):
     #   driver.execute_script(f"window.scrollTo(0, {str(i)}00);")
     #wait = WebDriverWait(driver, 10)
-    driver.set_page_load_timeout(20)
-    driver.set_script_timeout(20)
+
     #page_height = driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     # containers = driver.find_elements(by="xpath", value='//*[@class="swiper-slide slider__item"]')
 
