@@ -18,7 +18,8 @@ day_month_year = current_day.strftime("%d%m%y")
 path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
-options.add_argument("--headless")
+#options.add_argument("--headless")
+#If not using headless mode and scraped manually. We could scraped completely whole data from website 
 options.add_argument('--disable-extensions')
 options.add_argument('--disable-gpu')
 options.add_argument('--disable-dev-shm-usage')
