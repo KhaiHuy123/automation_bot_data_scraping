@@ -80,10 +80,11 @@ def scrape_TruyenQQi_s(list_url):
     return list_df
     pass
 # Multiple pages version:
-df_TruyenQQI = scrape_TruyenQQi_s(list_TruyenQQi)
-final_dataframe_TruyenQQI = merge_df(df_TruyenQQI)
-create_csv_file(final_dataframe_TruyenQQI, file_name="topDayTruyenQQi")
-driver.quit()
+if __name__ == '__main__':
+    df_TruyenQQI = scrape_TruyenQQi_s(list_TruyenQQi)
+    final_dataframe_TruyenQQI = merge_df(df_TruyenQQI)
+    create_csv_file(final_dataframe_TruyenQQI, file_name="topDayTruyenQQi")
+    driver.quit()
 
 #########################################################################
 # Single page version                                                   #
