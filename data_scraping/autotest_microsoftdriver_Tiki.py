@@ -134,10 +134,11 @@ def cleaning(df):
     return df
     pass
 
-df_Tiki = scrape_Tiki_s(list_tiki)
-final_dataframe_Tiki = merge_df(df_Tiki)
-create_csv_file(final_dataframe_Tiki, file_name="Info_Tiki_Product")
-driver.quit()
+if __name__ == '__main__':
+    df_Tiki = scrape_Tiki_s(list_tiki)
+    final_dataframe_Tiki = merge_df(df_Tiki)
+    create_csv_file(final_dataframe_Tiki, file_name="Info_Tiki_Product")
+    driver.quit()
 
 # Single page version
 # page_Tiki = scrape_Tiki(website=Tiki_page_1)
