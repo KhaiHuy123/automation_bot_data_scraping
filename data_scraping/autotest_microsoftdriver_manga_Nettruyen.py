@@ -134,42 +134,6 @@ def scrape_Nettruyen(website):
     topDay_manga_df = pd.DataFrame(topDay_manga_dict)
     return topDay_manga_df
     pass
-# scrpae_Nettruyen version using css selector
-# def scrape_Nettruyen(website):
-#     time.sleep(3)
-#     driver.set_window_size(360, 640)
-#     driver.get(website)
-#     driver.set_page_load_timeout(200.0)
-#     driver.set_script_timeout(150.0)
-#     titles = links = lastest_chap_list = teasers = discriptions = types = conditions = views = follows = []
-#     containers = driver.find_elements(by="css selector", value='''div.row > div > div > div > div.row > div''')
-#     for container in containers:
-#         driver.set_page_load_timeout(200.0)
-#         driver.set_script_timeout(50.0)
-#         title = container.find_element(by="css selector", value='''figure > figcaption > h3 > a''').text
-#         link = container.find_element(by="css selector", value='''figure > figcaption > h3 > a''').get_attribute("href")
-#         latest_chap = container.find_element(by="css selector", value='''figure > figcaption > ul > li.chapter.clearfix > a''').text
-#         teaser = container.find_element(by="css selector", value='''div > div > div.clearfix > div > a > img''').get_attribute("src")
-#         sub_container_invisible = container.find_element(by="css selector", value='''div''')
-#         driver.execute_script("return arguments[0].removeAttribute('style')", sub_container_invisible)
-#         discription = container.find_element(by="css selector", value='div > div > div.box_text').text
-#         type = container.find_element(by="css selector", value='div > div > div.clearfix > div.message_main > p:nth-child(2)').text
-#         condition = container.find_element(by="css selector", value='div > div > div.clearfix > div.message_main > p:nth-child(3)').text
-#         view = container.find_element(by="css selector", value='div > div > div.clearfix > div.message_main > p:nth-child(4)').text
-#         follow = container.find_element(by="css selector", value='div > div > div.clearfix > div.message_main > p:nth-child(6)').text
-#         titles.append(title)
-#         links.append(link)
-#         lastest_chap_list.append(latest_chap)
-#         teasers.append(teaser)
-#         discriptions.append(discription)
-#         types.append(type)
-#         conditions.append(condition)
-#         views.append(view)
-#         follows.append(follow)
-#     topDay_manga_dict = {"titles": titles, "lastest_Chap": lastest_chap_list, "types": types, "views": views, "follows":follows,
-#                          "condition": conditions, "discription": discriptions, "teasers": teasers, "links ": links}
-#     topDay_manga_df = pd.DataFrame(topDay_manga_dict)
-#     return topDay_manga_df
 def scrape_Nettuyen_s(list_url):
     list_df = []
     for url in list_url:
@@ -192,10 +156,11 @@ def merge_df(dataframes):
     return pd.concat(dataframes, axis=0)
     pass
 # Multiple pages version:
-df_Nettuyen = scrape_Nettuyen_s(list_Nettruyen)
-final_dataframe_Nettruyen = merge_df(df_Nettuyen)
-create_csv_file(final_dataframe_Nettruyen, file_name="topDayNettruyen")
-driver.quit()
+if __name__ == '__main__':
+    df_Nettuyen = scrape_Nettuyen_s(list_Nettruyen)
+    final_dataframe_Nettruyen = merge_df(df_Nettuyen)
+    create_csv_file(final_dataframe_Nettruyen, file_name="topDayNettruyen")
+    driver.quit()
 
 #########################################################################
 # Single page version                                                   #
