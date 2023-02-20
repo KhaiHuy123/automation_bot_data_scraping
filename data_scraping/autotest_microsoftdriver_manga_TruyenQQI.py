@@ -27,7 +27,7 @@ list_TruyenQQi = [
 app_path = os.path.dirname(sys.executable)
 current_day = datetime.now()
 day_month_year = current_day.strftime("%d%m%y")
-path = "msedgedriver.exe"
+path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
 options.add_argument("--headless")
