@@ -54,40 +54,6 @@ def cleaning(df):
         return df.drop_duplicates()
     return df
     pass
-# def scrape_VieOn(website):
-#     driver.get(website)
-#     driver.set_page_load_timeout(10.0)
-#     driver.set_script_timeout(10.0)
-#     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-#
-#     #containers = driver.find_elements(by="xpath", value='//*[@class="swiper-slide slider__item"]')
-#
-#     containers_images = driver.find_elements(By.XPATH, '//*[@class="swiper-slide slider__item"]/div/div/a/span/img')
-#     images = [container_image.get_attribute("src") for container_image in containers_images]
-#
-#     containers_titles = driver.find_elements(By.XPATH, '//*[@class="swiper-slide slider__item"]/div/div/a')
-#     titles = [containers_title.get_attribute("title")for containers_title in containers_titles]
-#
-#     containers_links = driver.find_elements(By.XPATH, '//*[@class="swiper-slide slider__item"]/div/div[2]/div/h3/a')
-#     links = [container_link.get_attribute("href") for container_link in containers_links]
-#
-#     containers_discriptions = driver.find_elements(By.XPATH, '//*[@class="swiper-slide slider__item"]/div/div[2]/div/div')
-#     discriptions = [container_discription.text for container_discription in containers_discriptions]
-#     #
-#     # print(len(containers))
-#     print(len(images))
-#     print(len(titles))
-#     print(len(discriptions))
-#     print(len(links))
-#     # print(titles)
-#     # print(images)
-#     # print(links)
-#     # print(discriptions)
-#     vieon_dict = {"titles": titles, "discripsion": discriptions, "image": images,
-#                   "link ": links}
-#     vion_df = pd.DataFrame.from_dict(vieon_dict, orient="columns")
-#     vion_df.fillna("unknown")
-#     return vion_df
 def scrape_VieOn_s(list_url):
     list_df = []
     for url in list_url:
@@ -138,10 +104,11 @@ def scrape_VieOn(website):
     vion_df = pd.DataFrame.from_dict(vieon_dict, orient="columns")
     vion_df.fillna("NaN", inplace=True)
     return vion_df
-df_VieOn = scrape_VieOn_s(list_VieOn)
-final_dataframe_VieOn = merge_df(df_VieOn)
-create_csv_file(final_dataframe_VieOn, file_name="VieOn")
-driver.quit()
+if __name__ == '__main__':
+    df_VieOn = scrape_VieOn_s(list_VieOn)
+    final_dataframe_VieOn = merge_df(df_VieOn)
+    create_csv_file(final_dataframe_VieOn, file_name="VieOn")
+    driver.quit()
 
 # page_VieOn = scrape_VieOn(website=VieOn_website_1)
 # create_csv_file(page_VieOn, file_name="VieOn")
