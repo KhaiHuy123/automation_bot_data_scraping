@@ -127,11 +127,11 @@ def scrape_Fahasa_s(list_url):
         list_df.append(df)
     return list_df
     pass
-
-df_Fahasa = scrape_Fahasa_s(list_Fahasa)
-final_dataframe_Fahasa = merge_df(df_Fahasa)
-create_csv_file(final_dataframe_Fahasa, file_name="Info_Fahasa")
-driver.quit()
+if __name__ == '__main__':
+    df_Fahasa = scrape_Fahasa_s(list_Fahasa)
+    final_dataframe_Fahasa = merge_df(df_Fahasa)
+    create_csv_file(final_dataframe_Fahasa, file_name="Info_Fahasa")
+    driver.quit()
 
 # Single page version
 # page_Fahasa = scrape_Fahasa(website=Fahasa_page7)
