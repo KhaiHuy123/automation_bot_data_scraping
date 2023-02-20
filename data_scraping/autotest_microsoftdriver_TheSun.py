@@ -142,13 +142,15 @@ def scrape_WorldNews_s(list_url):
         list_df.append(df)
     return list_df
     pass
-women_heath_Df = scrape_Women_Heath_s(list_women_heath)
-men_heath_Df = scrape_Men_Heath_s(list_men_heath)
-worldnews_DF = scrape_WorldNews_s(list_world_news)
-final_women_heath_DF = merge_df(women_heath_Df)
-final_men_heath_DF = merge_df(men_heath_Df)
-final_worldnews_DF = merge_df(worldnews_DF)
-create_csv_file(final_women_heath_DF, "women_heath_TheSun")
-create_csv_file(final_men_heath_DF, "man_heath_TheSun")
-create_csv_file(final_worldnews_DF, "worldnews_TheSun")
-driver.quit()
+
+if __name__ == '__main__':
+    women_heath_Df = scrape_Women_Heath_s(list_women_heath)
+    men_heath_Df = scrape_Men_Heath_s(list_men_heath)
+    worldnews_DF = scrape_WorldNews_s(list_world_news)
+    final_women_heath_DF = merge_df(women_heath_Df)
+    final_men_heath_DF = merge_df(men_heath_Df)
+    final_worldnews_DF = merge_df(worldnews_DF)
+    create_csv_file(final_women_heath_DF, "women_heath_TheSun")
+    create_csv_file(final_men_heath_DF, "man_heath_TheSun")
+    create_csv_file(final_worldnews_DF, "worldnews_TheSun")
+    driver.quit()
