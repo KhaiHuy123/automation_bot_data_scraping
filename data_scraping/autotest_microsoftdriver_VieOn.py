@@ -64,10 +64,10 @@ def scrape_VieOn_s(list_url):
     pass
 def scrape_VieOn(website):
     driver.get(website)
-    driver.fullscreen_window()
     time.sleep(3)
-    for i in range(200):
-        driver.execute_script(f"window.scrollTo(0, {str(i)}00);")
+    driver.fullscreen_window()
+    #for i in range(200):
+    #   driver.execute_script(f"window.scrollTo(0, {str(i)}00);")
     #wait = WebDriverWait(driver, 10)
     driver.set_page_load_timeout(20)
     driver.set_script_timeout(20)
