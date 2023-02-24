@@ -5,7 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 import pandas as pd
-import numpy as np
 import os
 from datetime import datetime
 import sys, time
