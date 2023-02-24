@@ -4,34 +4,6 @@ import pandas as pd
 import os
 from datetime import datetime
 import sys
-
-women_TheSun_Website_page1 = "https://www.thesun.co.uk/health/womens-health/"
-women_TheSun_Website_page2 = "https://www.thesun.co.uk/health/womens-health/page/2/"
-women_TheSun_Website_page3 = "https://www.thesun.co.uk/health/womens-health/page/3/"
-women_TheSun_Website_page4 = "https://www.thesun.co.uk/health/womens-health/page/4/"
-women_TheSun_Website_page5 = "https://www.thesun.co.uk/health/womens-health/page/5/"
-men_TheSun_Website_page1 = "https://www.thesun.co.uk/health/mens-health-and-fitness/"
-men_TheSun_Website_page2 = "https://www.thesun.co.uk/health/mens-health-and-fitness/page/2/"
-men_TheSun_Website_page3 = "https://www.thesun.co.uk/health/mens-health-and-fitness/page/3/"
-men_TheSun_Website_page4 = "https://www.thesun.co.uk/health/mens-health-and-fitness/page/4/"
-men_TheSun_Website_page5 = "https://www.thesun.co.uk/health/mens-health-and-fitness/page/5/"
-worldnews_TheSun_Website_page1 = "https://www.thesun.co.uk/news/worldnews/"
-worldnews_TheSun_Website_page2 = "https://www.thesun.co.uk/news/worldnews/page/2/"
-worldnews_TheSun_Website_page3 = "https://www.thesun.co.uk/news/worldnews/page/3/"
-worldnews_TheSun_Website_page4 = "https://www.thesun.co.uk/news/worldnews/page/4/"
-worldnews_TheSun_Website_page5 = "https://www.thesun.co.uk/news/worldnews/page/5/"
-list_women_heath = [
-    women_TheSun_Website_page1, women_TheSun_Website_page2,
-    women_TheSun_Website_page3, women_TheSun_Website_page4, women_TheSun_Website_page5
-]
-list_men_heath = [
-    men_TheSun_Website_page1, men_TheSun_Website_page2,
-    men_TheSun_Website_page3, men_TheSun_Website_page4, men_TheSun_Website_page5
-]
-list_world_news = [
-    worldnews_TheSun_Website_page1, worldnews_TheSun_Website_page2,
-    worldnews_TheSun_Website_page3, worldnews_TheSun_Website_page4, worldnews_TheSun_Website_page5
-]
 path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
@@ -142,7 +114,15 @@ def scrape_WorldNews_s(list_url):
         list_df.append(df)
     return list_df
     pass
-
+def read_file(filename):
+    data = []
+    with open(filename, 'r') as file:
+        for line in file:
+            data.append(line.strip())
+    return data
+list_women_heath = read_file("woman_heath.txt")
+list_men_heath = read_file("man_heath.txt")
+list_world_news = read_file("world_news.txt")
 if __name__ == '__main__':
     women_heath_Df = scrape_Women_Heath_s(list_women_heath)
     men_heath_Df = scrape_Men_Heath_s(list_men_heath)

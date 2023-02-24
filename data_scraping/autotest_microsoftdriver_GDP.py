@@ -218,3 +218,4 @@ if __name__ == '__main__':
     create_csv_file(df_eu_gdp, file_name="EU_gdp")
     create_csv_file(df_asia_gdp, file_name="ASIA_gdp")
     driver.quit()
+    

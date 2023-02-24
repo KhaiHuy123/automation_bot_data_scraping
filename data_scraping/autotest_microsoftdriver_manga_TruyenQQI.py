@@ -1,29 +1,9 @@
-import time
-import requests
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service
-from selenium.webdriver.common.proxy import Proxy, ProxyType
-from selenium_stealth import stealth
 import pandas as pd
-import os, random
-from bs4 import BeautifulSoup
+import os
 from datetime import datetime
 import sys
-website_truyenqqi_page1 = "https://truyenqqhot.com/truyen-moi-cap-nhat/trang-1.html"
-website_truyenqqi_page2 = "https://truyenqqhot.com/truyen-moi-cap-nhat/trang-2.html"
-website_truyenqqi_page3 = "https://truyenqqhot.com/truyen-moi-cap-nhat/trang-3.html"
-website_truyenqqi_page4 = "https://truyenqqhot.com/truyen-moi-cap-nhat/trang-4.html"
-website_truyenqqi_page5 = "https://truyenqqhot.com/truyen-moi-cap-nhat/trang-5.html"
-website_truyenqqi_page6 = "https://truyenqqhot.com/truyen-moi-cap-nhat/trang-6.html"
-website_truyenqqi_page7 = "https://truyenqqhot.com/truyen-moi-cap-nhat/trang-7.html"
-website_truyenqqi_page8 = "https://truyenqqhot.com/truyen-moi-cap-nhat/trang-8.html"
-website_truyenqqi_page9 = "https://truyenqqhot.com/truyen-moi-cap-nhat/trang-9.html"
-website_truyenqqi_page10 = "https://truyenqqhot.com/truyen-moi-cap-nhat/trang-10.html"
-list_TruyenQQi = [
-    website_truyenqqi_page1, website_truyenqqi_page2, website_truyenqqi_page3, website_truyenqqi_page4,
-    website_truyenqqi_page5, website_truyenqqi_page6, website_truyenqqi_page7,
-    website_truyenqqi_page8, website_truyenqqi_page9, website_truyenqqi_page10
-]
 app_path = os.path.dirname(sys.executable)
 current_day = datetime.now()
 day_month_year = current_day.strftime("%d%m%y")
@@ -79,6 +59,13 @@ def scrape_TruyenQQi_s(list_url):
         list_df.append(df)
     return list_df
     pass
+def read_file(filename):
+    data = []
+    with open(filename, 'r') as file:
+        for line in file:
+            data.append(line.strip())
+    return data
+list_TruyenQQi = read_file("manga_truyenqqi.txt")
 # Multiple pages version:
 if __name__ == '__main__':
     df_TruyenQQI = scrape_TruyenQQi_s(list_TruyenQQi)
