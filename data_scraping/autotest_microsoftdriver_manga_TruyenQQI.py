@@ -1,12 +1,7 @@
-import time
-import requests
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service
-from selenium.webdriver.common.proxy import Proxy, ProxyType
-from selenium_stealth import stealth
 import pandas as pd
-import os, random
-from bs4 import BeautifulSoup
+import os
 from datetime import datetime
 import sys
 app_path = os.path.dirname(sys.executable)
