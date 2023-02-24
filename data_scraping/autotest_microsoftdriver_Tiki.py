@@ -1,14 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 import pandas as pd
-import numpy as np
 import os
-from bs4 import BeautifulSoup
-import requests
 from datetime import datetime
 app_path = os.path.dirname(sys.executable)
 current_day = datetime.now()
