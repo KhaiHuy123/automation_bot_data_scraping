@@ -10,23 +10,6 @@ import os
 from bs4 import BeautifulSoup
 import requests
 from datetime import datetime
-import sys, time
-Tiki_page_1 = 'https://tiki.vn/thoi-trang-nu/c931'
-Tiki_page_2 = 'https://tiki.vn/thoi-trang-nu/c931?page=2'
-Tiki_page_3 = 'https://tiki.vn/thoi-trang-nu/c931?page=3'
-Tiki_page_4 = 'https://tiki.vn/thoi-trang-nu/c931?page=4'
-Tiki_page_5 = 'https://tiki.vn/thoi-trang-nu/c931?page=5'
-Tiki_page_6 = 'https://tiki.vn/thoi-trang-nu/c931?page=6'
-Tiki_page_7 = 'https://tiki.vn/thoi-trang-nu/c931?page=7'
-Tiki_page_8 = 'https://tiki.vn/thoi-trang-nu/c931?page=8'
-Tiki_page_9 = 'https://tiki.vn/thoi-trang-nu/c931?page=9'
-Tiki_page_10 = 'https://tiki.vn/thoi-trang-nu/c931?page=10'
-
-list_tiki = [
-    Tiki_page_1, Tiki_page_2, Tiki_page_3, Tiki_page_4,
-    Tiki_page_5, Tiki_page_6, Tiki_page_7, Tiki_page_8,
-    Tiki_page_9, Tiki_page_10
-]
 app_path = os.path.dirname(sys.executable)
 current_day = datetime.now()
 day_month_year = current_day.strftime("%d%m%y")
@@ -133,7 +116,13 @@ def cleaning(df):
         return df.drop_duplicates()
     return df
     pass
-
+def read_file(filename):
+    data = []
+    with open(filename, 'r') as file:
+        for line in file:
+            data.append(line.strip())
+    return data
+list_tiki = read_file("tiki_product_female.txt")
 if __name__ == '__main__':
     df_Tiki = scrape_Tiki_s(list_tiki)
     final_dataframe_Tiki = merge_df(df_Tiki)
