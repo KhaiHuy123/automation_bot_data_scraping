@@ -1,32 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 import pandas as pd
-import numpy as np
 import os
-from bs4 import BeautifulSoup
-import requests
 from datetime import datetime
 import sys, time
-Fahasa_page1 = 'https://www.fahasa.com/sach-trong-nuoc/van-hoc-trong-nuoc/light-novel.html?order=num_orders_month&limit=48&p=1'
-Fahasa_page2 = 'https://www.fahasa.com/sach-trong-nuoc/van-hoc-trong-nuoc/light-novel.html?order=num_orders_month&limit=48&p=2'
-Fahasa_page3 = 'https://www.fahasa.com/sach-trong-nuoc/van-hoc-trong-nuoc/light-novel.html?order=num_orders_month&limit=48&p=3'
-Fahasa_page4 = 'https://www.fahasa.com/sach-trong-nuoc/van-hoc-trong-nuoc/light-novel.html?order=num_orders_month&limit=48&p=4'
-Fahasa_page5 = 'https://www.fahasa.com/sach-trong-nuoc/van-hoc-trong-nuoc/light-novel.html?order=num_orders_month&limit=48&p=5'
-Fahasa_page6 = 'https://www.fahasa.com/sach-trong-nuoc/van-hoc-trong-nuoc/light-novel.html?order=num_orders_month&limit=48&p=6'
-Fahasa_page7 = 'https://www.fahasa.com/sach-trong-nuoc/van-hoc-trong-nuoc/light-novel.html?order=num_orders_month&limit=48&p=7'
-Fahasa_page8 = 'https://www.fahasa.com/sach-trong-nuoc/van-hoc-trong-nuoc/light-novel.html?order=num_orders_month&limit=48&p=8'
-Fahasa_page9 = 'https://www.fahasa.com/sach-trong-nuoc/van-hoc-trong-nuoc/light-novel.html?order=num_orders_month&limit=48&p=9'
-Fahasa_page10 = 'https://www.fahasa.com/sach-trong-nuoc/van-hoc-trong-nuoc/light-novel.html?order=num_orders_month&limit=48&p=10'
-Fahasa_page11 = 'https://www.fahasa.com/sach-trong-nuoc/van-hoc-trong-nuoc/light-novel.html?order=num_orders_month&limit=48&p=11'
-list_Fahasa = [
-    Fahasa_page1, Fahasa_page2, Fahasa_page3, Fahasa_page4,
-    Fahasa_page5, Fahasa_page6, Fahasa_page7, Fahasa_page8,
-    Fahasa_page9, Fahasa_page10, Fahasa_page11
-]
 path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
@@ -48,7 +26,6 @@ driver = webdriver.Edge(service=service, options=options)
 app_path = os.path.dirname(sys.executable)
 current_day = datetime.now()
 day_month_year = current_day.strftime("%d%m%y")
-
 def cleaning(df):
     df.drop_duplicates(inplace=True)
     df.drop_duplicates(subset=['price', "discount"], inplace=True)
@@ -127,6 +104,13 @@ def scrape_Fahasa_s(list_url):
         list_df.append(df)
     return list_df
     pass
+def read_file(filename):
+    data = []
+    with open(filename, 'r') as file:
+        for line in file:
+            data.append(line.strip())
+    return data
+list_Fahasa = read_file("fahasa_books.txt")
 if __name__ == '__main__':
     df_Fahasa = scrape_Fahasa_s(list_Fahasa)
     final_dataframe_Fahasa = merge_df(df_Fahasa)
