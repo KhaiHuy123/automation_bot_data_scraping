@@ -8,21 +8,6 @@ import os, random
 from bs4 import BeautifulSoup
 from datetime import datetime
 import sys
-website_nettruyen_page1 = "https://www.nettruyenup.com/"
-website_nettruyen_page2 = "https://www.nettruyenup.com/?page=2"
-website_nettruyen_page3 = "https://www.nettruyenup.com/?page=3"
-website_nettruyen_page4 = "https://www.nettruyenup.com/?page=4"
-website_nettruyen_page5 = "https://www.nettruyenup.com/?page=5"
-website_nettruyen_page6 = "https://www.nettruyenup.com/?page=6"
-website_nettruyen_page7 = "https://www.nettruyenup.com/?page=7"
-website_nettruyen_page8 = "https://www.nettruyenup.com/?page=8"
-website_nettruyen_page9 = "https://www.nettruyenup.com/?page=9"
-website_nettruyen_page10 = "https://www.nettruyenup.com/?page=10"
-list_Nettruyen = [
-    website_nettruyen_page1, website_nettruyen_page2, website_nettruyen_page3, website_nettruyen_page4,
-    website_nettruyen_page5, website_nettruyen_page6, website_nettruyen_page7,
-    website_nettruyen_page8, website_nettruyen_page9, website_nettruyen_page10
-]
 app_path = os.path.dirname(sys.executable)
 current_day = datetime.now()
 day_month_year = current_day.strftime("%d%m%y")
@@ -155,6 +140,13 @@ def create_csv_file(df,file_name):
 def merge_df(dataframes):
     return pd.concat(dataframes, axis=0)
     pass
+def read_file(filename):
+    data = []
+    with open(filename, 'r') as file:
+        for line in file:
+            data.append(line.strip())
+    return data
+list_Nettruyen = read_file("manga_nettruyen.txt")
 # Multiple pages version:
 if __name__ == '__main__':
     df_Nettuyen = scrape_Nettuyen_s(list_Nettruyen)
