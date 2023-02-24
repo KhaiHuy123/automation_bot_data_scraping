@@ -27,12 +27,6 @@ options.add_argument('--ignore-certificate-errors')
 options.add_argument('--disable-popup-blocking')
 options.add_argument('--disable-notifications')
 options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edge/90.0.864.75")
-# VieOn_website_1 = "https://vieon.vn/"
-# VieOn_Website_2 = "https://vieon.vn/phim-bo/"
-#
-# list_VieOn = [
-#     VieOn_website_1, VieOn_Website_2
-# ]
 driver = webdriver.Edge(service=service, options=options)
 
 def create_csv_file(df,file_name):
