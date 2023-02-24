@@ -7,8 +7,6 @@ from selenium.webdriver.common.by import By
 import pandas as pd
 import numpy as np
 import os
-from bs4 import BeautifulSoup
-import requests
 from datetime import datetime
 import sys, time
 path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
