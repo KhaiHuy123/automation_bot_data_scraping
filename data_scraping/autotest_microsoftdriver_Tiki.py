@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 import pandas as pd
 import os
 from datetime import datetime
+import sys, time
 app_path = os.path.dirname(sys.executable)
 current_day = datetime.now()
 day_month_year = current_day.strftime("%d%m%y")
