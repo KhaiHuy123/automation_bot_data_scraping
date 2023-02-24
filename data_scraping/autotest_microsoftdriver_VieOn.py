@@ -2,14 +2,9 @@ import time
 import requests
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service
-from selenium.webdriver.common.proxy import Proxy, ProxyType
-from selenium_stealth import stealth
 import pandas as pd
 import os, random
-from bs4 import BeautifulSoup
 from datetime import datetime
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import sys
 app_path = os.path.dirname(sys.executable)
@@ -19,7 +14,6 @@ path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
 #options.add_argument("--headless")
-#If not using headless mode and scraped manually. We could scraped completely whole data from website 
 options.add_argument('--disable-extensions')
 options.add_argument('--disable-gpu')
 options.add_argument('--disable-dev-shm-usage')
@@ -33,13 +27,12 @@ options.add_argument('--ignore-certificate-errors')
 options.add_argument('--disable-popup-blocking')
 options.add_argument('--disable-notifications')
 options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edge/90.0.864.75")
-
-VieOn_website_1 = "https://vieon.vn/"
-VieOn_Website_2 = "https://vieon.vn/phim-bo/"
-
-list_VieOn = [
-    VieOn_website_1, VieOn_Website_2
-]
+# VieOn_website_1 = "https://vieon.vn/"
+# VieOn_Website_2 = "https://vieon.vn/phim-bo/"
+#
+# list_VieOn = [
+#     VieOn_website_1, VieOn_Website_2
+# ]
 driver = webdriver.Edge(service=service, options=options)
 
 def create_csv_file(df,file_name):
@@ -65,11 +58,12 @@ def scrape_VieOn_s(list_url):
 def scrape_VieOn(website):
     driver.get(website)
     time.sleep(3)
-    driver.set_page_load_timeout(20)
+    driver.set_page_load_timeout(25)
     driver.set_script_timeout(20)
     driver.fullscreen_window()
-    #for i in range(200):
-    #   driver.execute_script(f"window.scrollTo(0, {str(i)}00);")
+
+    # for i in range(220):
+    #     driver.execute_script(f"window.scrollTo(0, {str(i)}00);")
     #wait = WebDriverWait(driver, 10)
 
     #page_height = driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -96,7 +90,6 @@ def scrape_VieOn(website):
     # print(len(titles))
     # print(len(discriptions))
     print(len(links))
-
     # max_len = max(len(links), len(images), len(titles), len(discriptions))
     # links += [float('NaN')] * (max_len - len(links))
     # titles += [float('NaN')] * (max_len - len(titles))
@@ -106,6 +99,13 @@ def scrape_VieOn(website):
     vion_df = pd.DataFrame.from_dict(vieon_dict, orient="columns")
     vion_df.fillna("NaN", inplace=True)
     return vion_df
+def read_file(filename):
+    data = []
+    with open(filename, 'r') as file:
+        for line in file:
+            data.append(line.strip())
+    return data
+list_VieOn = read_file("vieon_films.txt")
 if __name__ == '__main__':
     df_VieOn = scrape_VieOn_s(list_VieOn)
     final_dataframe_VieOn = merge_df(df_VieOn)
