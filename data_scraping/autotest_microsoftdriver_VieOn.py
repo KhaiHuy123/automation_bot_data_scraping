@@ -1,9 +1,8 @@
 import time
-import requests
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service
 import pandas as pd
-import os, random
+import os
 from datetime import datetime
 from selenium.webdriver.common.by import By
 import sys
