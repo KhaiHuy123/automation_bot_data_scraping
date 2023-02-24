@@ -11,22 +11,6 @@ from bs4 import BeautifulSoup
 import requests
 from datetime import datetime
 import sys, time
-Shopee_page1 = 'https://shopee.vn/Th%E1%BB%9Di-Trang-N%E1%BB%AF-cat.11035639?page=0'
-Shopee_page2 = 'https://shopee.vn/Th%E1%BB%9Di-Trang-N%E1%BB%AF-cat.11035639?page=1'
-Shopee_page3 = 'https://shopee.vn/Th%E1%BB%9Di-Trang-N%E1%BB%AF-cat.11035639?page=2'
-Shopee_page4 = 'https://shopee.vn/Th%E1%BB%9Di-Trang-N%E1%BB%AF-cat.11035639?page=3'
-Shopee_page5 = 'https://shopee.vn/Th%E1%BB%9Di-Trang-N%E1%BB%AF-cat.11035639?page=4'
-Shopee_page6 = 'https://shopee.vn/Th%E1%BB%9Di-Trang-N%E1%BB%AF-cat.11035639?page=5'
-Shopee_page7 = 'https://shopee.vn/Th%E1%BB%9Di-Trang-N%E1%BB%AF-cat.11035639?page=6'
-Shopee_page8 = 'https://shopee.vn/Th%E1%BB%9Di-Trang-N%E1%BB%AF-cat.11035639?page=7'
-Shopee_page9 = 'https://shopee.vn/Th%E1%BB%9Di-Trang-N%E1%BB%AF-cat.11035639?page=8'
-Shopee_page10 = 'https://shopee.vn/Th%E1%BB%9Di-Trang-N%E1%BB%AF-cat.11035639?page=9'
-Shopee_page11 = 'https://shopee.vn/Th%E1%BB%9Di-Trang-N%E1%BB%AF-cat.11035639?page=10'
-list_Shopee = [
-    Shopee_page1, Shopee_page2, Shopee_page3, Shopee_page4,
-    Shopee_page5, Shopee_page6, Shopee_page7, Shopee_page8,
-    Shopee_page9, Shopee_page10, Shopee_page11
-]
 path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
@@ -81,6 +65,12 @@ def create_csv_file(df,file_name):
 def merge_df(dataframes):
     return pd.concat(dataframes)
     pass
+def read_file(filename):
+    data = []
+    with open(filename, 'r') as file:
+        for line in file:
+            data.append(line.strip())
+    return data
 '''OK VERSION BELOW'''
 def scrape_Shopee(website):
     driver.get(website)
@@ -182,7 +172,6 @@ def scrape_Shopee_s(list_url):
         list_df.append(df)
     return list_df
     pass
-
 '''OK VERSION BELOW'''
 # def scrape_Shopee(website):
 #     driver.get(website)
@@ -217,6 +206,7 @@ def scrape_Shopee_s(list_url):
 #     return shopee_df
 #     pass
 ''''''
+list_Shopee = read_file("shopee_product_female.txt")
 if __name__ == '__main__':
     df_Shopee = scrape_Shopee_s(list_Shopee)
     final_dataframe_Shopee = merge_df(df_Shopee)
