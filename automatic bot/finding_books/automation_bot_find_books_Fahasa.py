@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 try:
     website = 'https://www.fahasa.com/'
     driver_path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
-    def select_place_prodcut(product):
+    def select_place_product(product):
         search_field = driver.find_element(By.XPATH, value='//*[@id="search_desktop"]')
         search_field.send_keys(product)
         search_button = driver.find_element(By.XPATH, value='//*[@id="search_mini_form_desktop"]/div/div/span')
@@ -101,7 +101,7 @@ try:
         adress.send_keys(f'{adress_name}')
     def execute():
         # send keys to input field (product's name) and click search button
-        select_place_prodcut(name_product)
+        select_place_product(name_product)
         # move to available product list
         change_to_in_stock_area(driver)
         # click to product
