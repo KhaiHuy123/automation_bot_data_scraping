@@ -153,12 +153,3 @@ if __name__ == '__main__':
     final_dataframe_Nettruyen = merge_df(df_Nettuyen)
     create_csv_file(final_dataframe_Nettruyen, file_name="topDayNettruyen")
     driver.quit()
-
-#########################################################################
-# Single page version                                                   #
-# page1_Nettruyen = scrape_Nettruyen(website=website_nettruyen_page2)   #
-#                                                                       #
-# create_csv_file(page1_Nettruyen, file_name="topDayNettruyen")         #
-#                                                                       #
-# driver.quit()                                                         #
-#########################################################################
