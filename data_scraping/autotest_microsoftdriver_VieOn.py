@@ -104,7 +104,3 @@ if __name__ == '__main__':
     final_dataframe_VieOn = merge_df(df_VieOn)
     create_csv_file(final_dataframe_VieOn, file_name="VieOn")
     driver.quit()
-
-# page_VieOn = scrape_VieOn(website=VieOn_website_1)
-# create_csv_file(page_VieOn, file_name="VieOn")
-# driver.quit()
