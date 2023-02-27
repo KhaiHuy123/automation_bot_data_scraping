@@ -123,8 +123,3 @@ if __name__ == '__main__':
     final_dataframe_Tiki = merge_df(df_Tiki)
     create_csv_file(final_dataframe_Tiki, file_name="Info_Tiki_Product")
     driver.quit()
-
-# Single page version
-# page_Tiki = scrape_Tiki(website=Tiki_page_1)
-# create_csv_file(page_Tiki, file_name="Tiki")
-# driver.quit()
