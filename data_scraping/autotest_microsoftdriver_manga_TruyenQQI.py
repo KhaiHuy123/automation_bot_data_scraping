@@ -72,12 +72,3 @@ if __name__ == '__main__':
     final_dataframe_TruyenQQI = merge_df(df_TruyenQQI)
     create_csv_file(final_dataframe_TruyenQQI, file_name="topDayTruyenQQi")
     driver.quit()
-
-#########################################################################
-# Single page version                                                   #
-# page1_TruyenQQI = scrape_TruyenQQI(website=website_truyenqqi_page1)   #
-#                                                                       #
-# create_csv_file(page1_TruyenQQI, file_name="topDayTruyenQQI")         #
-#                                                                       #
-# driver.quit()                                                         #
-#########################################################################
