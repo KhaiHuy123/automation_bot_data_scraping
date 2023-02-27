@@ -116,8 +116,3 @@ if __name__ == '__main__':
     final_dataframe_Fahasa = merge_df(df_Fahasa)
     create_csv_file(final_dataframe_Fahasa, file_name="Info_Fahasa")
     driver.quit()
-
-# Single page version
-# page_Fahasa = scrape_Fahasa(website=Fahasa_page7)
-# create_csv_file(page_Fahasa, file_name="Fahasa")
-# driver.quit()
