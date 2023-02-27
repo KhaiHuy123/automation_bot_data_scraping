@@ -209,9 +209,4 @@ if __name__ == '__main__':
     final_dataframe_Shopee = merge_df(df_Shopee)
     create_csv_file(final_dataframe_Shopee, file_name="Info_Shopee_Product")
     driver.quit()
-
-# Single page version
-# page_shopee = scrape_Shopee(website=Shopee_page7)
-# create_csv_file(page_shopee, file_name="shopee")
-# driver.quit()
 ''''''
