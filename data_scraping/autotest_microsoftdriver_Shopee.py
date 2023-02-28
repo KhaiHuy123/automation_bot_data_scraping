@@ -125,43 +125,6 @@ def scrape_Shopee(website):
     shopee_df['location'].fillna('unknown', inplace=True)
     return shopee_df
     pass
-'''OK VERSION BELOW'''
-# def scrape_Shopee(website):
-#     driver.get(website)
-#     time.sleep(3)
-#     html = driver.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
-#     soup = BeautifulSoup(html, "html.parser")
-#     #soup.find_all("div", class_="col-xs-2-4 shopee-search-item-result__item")
-#     containers_links = soup.find_all(xpath_='/html/body/div[1]/div/div[2]/div/div/div[4]/div[2]/div/div[2]/div/a')
-#     print(len(containers_links))
-#     links = [container_link.get_attribute("href") for container_link in containers_links]
-#
-#     containers_name_products = soup.find_all(xpath="/html/body/div[1]/div/div[2]/div/div/div[4]/div[2]/div/div[2]/div/a/div/div/div[2]/div[1]/div/div[@class='_1yN94N WoKSjC _2KkMCe']")
-#     print(len(containers_name_products))
-#     name_products = [container_name_product.text for container_name_product in containers_name_products]
-#
-#     containers_discount = soup.find_all("div", class_="sWDsGo")
-#     print(len(containers_discount))
-#     discount = [container_discount.text for container_discount in containers_discount]
-#
-#     containers_org_prices = soup.find_all(xpath= "/html/body/div[1]/div/div[2]/div/div/div[4]/div[2]/div/div[2]/div/a/div/div/div[2]/div[2]/div[1]")
-#     print(len(containers_org_prices))
-#     org_prices = [container_org_price.text for container_org_price in containers_org_prices]
-#
-#     containers_saled_products = soup.find_all('div', class_='x+3B8m wOebCz')
-#     print(len(containers_saled_products))
-#     saled_products = [container_saled_product.text for container_saled_product in containers_saled_products]
-#
-#     containers_locations = soup.find_all('div', class_="mrz-bA")
-#     print(len(containers_locations))
-#     locations = [container_location.text for container_location in containers_locations]
-#
-#     shopee_dict = {"name_product": name_products, "discount": discount,
-#                "price_org": org_prices,
-#                "saled": saled_products, "location": locations, "link": links}
-#     shopee_df = pd.DataFrame(shopee_dict)
-#     return shopee_df
-#     pass
 def scrape_Shopee_s(list_url):
     list_df = []
     for url in list_url:
@@ -169,39 +132,6 @@ def scrape_Shopee_s(list_url):
         list_df.append(df)
     return list_df
     pass
-'''OK VERSION BELOW'''
-# def scrape_Shopee(website):
-#     driver.get(website)
-#     driver.maximize_window()
-#     time.sleep(3)
-#
-#     containers_links = driver.find_elements(By.XPATH, '//*[@class="col-xs-2-4 shopee-search-item-result__item"]/a')
-#     print(len(containers_links))
-#     links = [container_link.get_attribute("href") for container_link in containers_links]
-#
-#     containers_name_products = driver.find_elements(By.XPATH, "//*[@class='_1yN94N WoKSjC _2KkMCe']")
-#     print(len(containers_name_products))
-#     name_products = [container_name_product.text for container_name_product in containers_name_products]
-#
-#     containers_org_prices = driver.find_elements(By.XPATH, "//*[@class='AQ4KLF']")
-#     print(len(containers_org_prices))
-#     org_prices = [container_org_price.text for container_org_price in containers_org_prices]
-#
-#     containers_saled_products = driver.find_elements(By.CSS_SELECTOR, '.tysB0L')
-#     print(len(containers_saled_products))
-#     saled_products = [container_saled_product.text for container_saled_product in containers_saled_products]
-#
-#     containers_locations = driver.find_elements(By.CSS_SELECTOR, ".mrz-bA  ")
-#     print(len(containers_locations))
-#     locations = [container_location.text for container_location in containers_locations]
-#
-#     shopee_dict = {"name_product": name_products,
-#                "price_org": org_prices,
-#                "saled": saled_products, "location": locations, "link": links}
-#     shopee_df = pd.DataFrame.from_dict(shopee_dict)
-#     shopee_df.fillna('0', inplace=True)
-#     return shopee_df
-#     pass
 ''''''
 list_Shopee = read_file("shopee_product_female.txt")
 if __name__ == '__main__':
