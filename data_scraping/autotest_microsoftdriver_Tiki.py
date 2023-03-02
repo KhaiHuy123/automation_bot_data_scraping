@@ -99,7 +99,7 @@ def scrape_Tiki_s(list_url):
     return list_df
     pass
 def create_csv_file(df,file_name):
-    file = f'{file_name}_female_{day_month_year}.csv'
+    file = f'{file_name}_{day_month_year}.csv'
     file_export = os.path.join(app_path, file)
     df.to_csv(file_export, header=True, encoding="utf-8", index=False)
     pass
@@ -117,7 +117,8 @@ def read_file(filename):
         for line in file:
             data.append(line.strip())
     return data
-list_tiki = read_file("tiki_product_female.txt")
+list_tiki = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\tiki_product.txt")
 if __name__ == '__main__':
     df_Tiki = scrape_Tiki_s(list_tiki)
     final_dataframe_Tiki = merge_df(df_Tiki)

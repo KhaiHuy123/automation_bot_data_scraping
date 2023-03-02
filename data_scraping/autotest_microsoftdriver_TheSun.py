@@ -120,9 +120,12 @@ def read_file(filename):
         for line in file:
             data.append(line.strip())
     return data
-list_women_heath = read_file("woman_heath.txt")
-list_men_heath = read_file("man_heath.txt")
-list_world_news = read_file("world_news.txt")
+list_women_heath = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\woman_heath.txt")
+list_men_heath = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\man_heath.txt")
+list_world_news = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\world_news.txt")
 if __name__ == '__main__':
     women_heath_Df = scrape_Women_Heath_s(list_women_heath)
     men_heath_Df = scrape_Men_Heath_s(list_men_heath)

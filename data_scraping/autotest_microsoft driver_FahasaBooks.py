@@ -110,7 +110,8 @@ def read_file(filename):
         for line in file:
             data.append(line.strip())
     return data
-list_Fahasa = read_file("fahasa_books.txt")
+list_Fahasa = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                        "automation_bot_data_scraping\\data_scraping\\url_list\\fahasa_books.txt")
 if __name__ == '__main__':
     df_Fahasa = scrape_Fahasa_s(list_Fahasa)
     final_dataframe_Fahasa = merge_df(df_Fahasa)

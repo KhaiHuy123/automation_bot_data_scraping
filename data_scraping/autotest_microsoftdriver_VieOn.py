@@ -55,8 +55,8 @@ def scrape_VieOn(website):
     driver.set_script_timeout(20)
     driver.fullscreen_window()
 
-    # for i in range(220):
-    #     driver.execute_script(f"window.scrollTo(0, {str(i)}00);")
+    for i in range(220):
+        driver.execute_script(f"window.scrollTo(0, {str(i)}00);")
     #wait = WebDriverWait(driver, 10)
 
     #page_height = driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -98,7 +98,8 @@ def read_file(filename):
         for line in file:
             data.append(line.strip())
     return data
-list_VieOn = read_file("vieon_films.txt")
+list_VieOn = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\vieon_films.txt")
 if __name__ == '__main__':
     df_VieOn = scrape_VieOn_s(list_VieOn)
     final_dataframe_VieOn = merge_df(df_VieOn)

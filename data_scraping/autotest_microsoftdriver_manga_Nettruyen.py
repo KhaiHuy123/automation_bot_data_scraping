@@ -146,7 +146,8 @@ def read_file(filename):
         for line in file:
             data.append(line.strip())
     return data
-list_Nettruyen = read_file("manga_nettruyen.txt")
+list_Nettruyen = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_nettruyen.txt")
 # Multiple pages version:
 if __name__ == '__main__':
     df_Nettuyen = scrape_Nettuyen_s(list_Nettruyen)

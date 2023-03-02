@@ -65,7 +65,8 @@ def read_file(filename):
         for line in file:
             data.append(line.strip())
     return data
-list_TruyenQQi = read_file("manga_truyenqqi.txt")
+list_TruyenQQi = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_truyenqqi.txt")
 # Multiple pages version:
 if __name__ == '__main__':
     df_TruyenQQI = scrape_TruyenQQi_s(list_TruyenQQi)
