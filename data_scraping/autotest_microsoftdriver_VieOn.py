@@ -6,6 +6,9 @@ import os
 from datetime import datetime
 from selenium.webdriver.common.by import By
 import sys
+
+global list_VieOn
+
 app_path = os.path.dirname(sys.executable)
 current_day = datetime.now()
 day_month_year = current_day.strftime("%d%m%y")

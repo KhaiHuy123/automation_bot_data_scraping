@@ -4,6 +4,9 @@ import pandas as pd
 import os
 from datetime import datetime
 import sys
+
+global list_women_heath, list_men_heath, list_world_news
+
 path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
