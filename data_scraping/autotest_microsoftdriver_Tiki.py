@@ -5,9 +5,11 @@ import pandas as pd
 import os
 from datetime import datetime
 import sys, time
-app_path = os.path.dirname(sys.executable)
-current_day = datetime.now()
-day_month_year = current_day.strftime("%d%m%y")
+
+tiki_first_website = 'https://tiki.vn/'
+
+global list_tiki
+
 path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
@@ -27,6 +29,10 @@ options.add_argument('--disable-notifications')
 options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edge/90.0.864.75")
 
 driver = webdriver.Edge(service=service, options=options)
+app_path = os.path.dirname(sys.executable)
+current_day = datetime.now()
+day_month_year = current_day.strftime("%d%m%y")
+
 def scrape_Tiki(website):
     driver.get(website)
     driver.fullscreen_window()
@@ -117,6 +123,11 @@ def read_file(filename):
         for line in file:
             data.append(line.strip())
     return data
+def write_to_file(lst, filename):
+    with open(filename, 'w') as f:
+        for item in lst:
+            f.write(str(item) + '\n')
+
 list_tiki = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
                       "automation_bot_data_scraping\\data_scraping\\url_list\\tiki_product.txt")
 if __name__ == '__main__':
