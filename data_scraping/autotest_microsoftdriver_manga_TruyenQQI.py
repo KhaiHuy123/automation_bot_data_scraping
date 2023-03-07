@@ -14,6 +14,7 @@ path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
 options.add_argument("--headless")
+options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edge/90.0.864.75")
 driver = webdriver.Edge(service=service, options=options)
 def scrape_TruyenQQI(website):
     driver.get(website)

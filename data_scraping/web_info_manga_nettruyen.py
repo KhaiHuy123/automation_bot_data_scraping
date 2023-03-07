@@ -3,7 +3,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.service import Service
-
 class web_info_():
     def __init__(self):
         path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
@@ -13,7 +12,7 @@ class web_info_():
         options.add_argument('--disable-popup-blocking')
         self.driver = webdriver.Edge(service=service, options=options)
         self.urls = []
-        self.website = "https://www.fahasa.com/"
+        self.website = "https://www.nettruyenup.com/"
 
         self.driver.implicitly_wait(15)
 
@@ -21,48 +20,40 @@ class web_info_():
         return self.driver.current_url
 
     def input_data(self):
-        self.book_tag = input('Book tag for search : ')
-        self.book_type = input('Book type for search : ')
+        self.id_manga_type = int(input('Manga id for search : '))
         self.num_pages = int(input('Num pages scrape : '))
         self.file_name = input('File name store url : ')
 
-    def search(self, book_tag, book_type):
+    def search(self, id):
+
         self.driver.get(self.website)
         self.driver.maximize_window()
+        time.sleep(2)
 
         self.action = ActionChains(self.driver)
-        self.menu = self.driver.find_element(By.XPATH, value='//*[@id="header"]/div[1]/div[2]/div/div[2]/span[@class="icon_menu"]')
-        self.action.move_to_element(self.menu)
-        self.action.perform()
-
-        self.tag = self.driver.find_element(By.XPATH, value=f'//*[@id="header"]/div[1]/div[2]/div/div[2]/'
-                                                            f'div[1]/div/div[1]/ul/li/a[@title="{book_tag}"]')
-        self.action.move_to_element(self.tag)
-        self.action.click()
-        self.action.perform()
-
-        self.driver.implicitly_wait(15)
-        self.more_choice = self.driver.find_element(By.XPATH, value='//*[@id="m-more-less-left_category"]/a[2]')
-        self.action.move_to_element(self.more_choice)
-        self.action.click()
-        self.action.perform()
-
-        self.group_by = self.driver.find_element(By.XPATH,
-        value='//*[@id="wrapper"]/div[2]/div[1]/div/div[2]/div/div/div[2]/div/div[5]/div[4]/div[1]/div/div[2]/div/div/div/div')
-        self.action.move_to_element(self.group_by)
-        self.action.click()
-        self.action.perform()
-
-        self.choose_group_by = self.driver.find_element(By.XPATH,
-        value='//*[@id="wrapper"]/div[2]/div[1]/div/div[2]/div/div/div[2]/div/div[5]/div[4]/div[1]/div/div[2]/div/div/div/div/div/span[@value="48"]')
-        self.action.move_to_element(self.choose_group_by)
-        self.action.click()
-        self.action.perform()
+        self.find_ = self.driver.find_element(By.XPATH, value='//*[@id="mainNav"]/div/div/div/div/ul/li[7]/a').get_attribute("href")
+        #self.find_ = self.driver.find_element(By.XPATH, value='//*[@id="mainNav"]/div/div/div/div/ul/li[5]/a').get_attribute("href")
+        self.driver.get(self.find_)
         time.sleep(2)
-        self.choice = self.driver.find_element(By.XPATH, value=f'//*[@id="children-categories"]/li/a[@title="{book_type}"]')
+        self.driver.implicitly_wait(15)
+
+        xpath_expression = f'//*[@id="ctl00_divCenter"]/div[2]/div/div[3]/div[2]/div/div/div/div/span[@data-id={id}]'
+        # text_to_find = f"{product_type}"
+        #xpath_expression = '''//*[@id="ctl00_divRight"]/div/div/ul/li/a [contains(text(), "{}")]'''.format(text_to_find)
+
+        self.choice = self.driver.find_element(By.XPATH, value=xpath_expression)
+        self.driver.execute_script("arguments[0].click();return false;", self.choice)
         self.action.move_to_element(self.choice)
         self.action.click()
         self.action.perform()
+        self.driver.implicitly_wait(15)
+        self.start_finding = self.driver.find_element(By.XPATH,
+        value='//*[@id="ctl00_divCenter"]/div[2]/div/div[3]/div[5]/div/button[@class="btn btn-success btn-search"]')
+        # self.driver.execute_script("arguments[0].click();return false;", self.start_finding)
+        # self.action.move_to_element(self.start_finding)
+        # self.action.click()
+        # self.action.perform()
+        self.start_finding.click()
         current_page = self.driver.current_url
         return current_page
         pass
@@ -70,7 +61,9 @@ class web_info_():
     def navigate_to_next_page(self):
         for i in range(200):
             self.driver.execute_script(f"window.scrollTo(0, {str(i)}00);")
-        next_button = self.driver.find_element(By.XPATH, value='//*[@id="pagination"]/ol/li/a/div[@class="icon-turn-right"]')
+        next_button = self.driver.find_element(By.XPATH,
+        value='//*[@id="ctl00_mainContent_ctl02_divPager"]/ul/li/a[@class="next-page"]')
+        #value='//*[@id="ctl00_mainContent_ctl01_divPager"]/ul/li/a[@class="next-page"]')
         self.action.move_to_element(next_button)
         self.action.click()
         self.action.perform()
@@ -81,7 +74,7 @@ class web_info_():
         for i in range(num_pages):
             self.urls.append(current_page)
             self.navigate_to_next_page()
-            time.sleep(3)
+            time.sleep(2)
             current_page = self.driver.current_url
         with open(f'.//url_list//{file_name}', 'w') as f:
             for url in self.urls:
@@ -89,7 +82,7 @@ class web_info_():
 
     def execute(self):
         self.input_data()
-        first_page = self.search(self.book_tag, self.book_type)
+        first_page = self.search(self.id_manga_type)
         self.get_all_urls(first_page, self.num_pages, file_name=self.file_name)
         pass
 
