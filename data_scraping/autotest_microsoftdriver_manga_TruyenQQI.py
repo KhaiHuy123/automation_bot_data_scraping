@@ -14,6 +14,7 @@ path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
 options = webdriver.EdgeOptions()
 options.add_argument("--headless")
+options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edge/90.0.864.75")
 driver = webdriver.Edge(service=service, options=options)
 def scrape_TruyenQQI(website):
     driver.get(website)
@@ -69,7 +70,7 @@ def read_file(filename):
             data.append(line.strip())
     return data
 list_TruyenQQi = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_truyenqqi.txt")
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_horror_truyenqqi.txt")
 # Multiple pages version:
 if __name__ == '__main__':
     df_TruyenQQI = scrape_TruyenQQi_s(list_TruyenQQi)

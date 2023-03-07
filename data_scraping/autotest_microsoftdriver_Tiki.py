@@ -6,8 +6,6 @@ import os
 from datetime import datetime
 import sys, time
 
-tiki_first_website = 'https://tiki.vn/'
-
 global list_tiki
 
 path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
@@ -129,7 +127,7 @@ def write_to_file(lst, filename):
             f.write(str(item) + '\n')
 
 list_tiki = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                      "automation_bot_data_scraping\\data_scraping\\url_list\\tiki_product.txt")
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\tiki_product_smart_digital.txt")
 if __name__ == '__main__':
     df_Tiki = scrape_Tiki_s(list_tiki)
     final_dataframe_Tiki = merge_df(df_Tiki)

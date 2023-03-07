@@ -9,8 +9,6 @@ import os
 from datetime import datetime
 import sys, time
 
-shopee_first_webiste = 'https://shopee.vn/'
-
 global list_Shopee
 
 path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"

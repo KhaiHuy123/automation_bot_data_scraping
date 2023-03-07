@@ -6,8 +6,6 @@ import os
 from datetime import datetime
 import sys, time
 
-fahasa_first_website = 'https://www.fahasa.com/'
-
 global list_Fahasa
 
 path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
@@ -123,7 +121,7 @@ def write_to_file(lst, filename):
             f.write(str(item) + '\n')
 
 list_Fahasa = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                        "automation_bot_data_scraping\\data_scraping\\url_list\\fahasa_books.txt")
+                        "automation_bot_data_scraping\\data_scraping\\url_list\\fahasa_books_children.txt")
 if __name__ == '__main__':
     df_Fahasa = scrape_Fahasa_s(list_Fahasa)
     final_dataframe_Fahasa = merge_df(df_Fahasa)

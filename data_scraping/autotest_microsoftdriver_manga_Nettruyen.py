@@ -95,7 +95,7 @@ def scrape_Nettruyen(website):
     driver.set_page_load_timeout(10.0)
     driver.set_script_timeout(10.0)
     titles, links, lastest_chap_list, teasers, discriptions, types, conditions, views, follows = [], [], [], [], [], [], [], [], []
-    containers = driver.find_elements(by="xpath", value='//div[@class="row"]/div//div/div/div/div[@class="row"]/div')
+    containers = driver.find_elements(by="xpath", value='*//div[@class="row"]/div//div/div/div/div[@class="row"]/div[@class="item"]')
     for container in containers:
         title = container.find_element(by="xpath", value='./figure/figcaption/h3/a').text
         link = container.find_element(by="xpath", value='./figure/figcaption/h3/a').get_attribute("href")
@@ -150,7 +150,7 @@ def read_file(filename):
             data.append(line.strip())
     return data
 list_Nettruyen = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_nettruyen.txt")
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_nettruyen_.txt")
 # Multiple pages version:
 if __name__ == '__main__':
     df_Nettuyen = scrape_Nettuyen_s(list_Nettruyen)
