@@ -36,7 +36,6 @@ class web_info_():
         self.action.click()
         self.action.perform()
 
-        self.driver.refresh()
         text_to_find = f"{product_type}"
         xpath_expression = "//*[@id='__next']/div[1]/main/div[2]/div[1]/div[1]/div[1]/div/div/a [contains(text(), '{}')]".format(text_to_find)
         time.sleep(2)
