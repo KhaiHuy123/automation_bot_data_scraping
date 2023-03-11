@@ -30,16 +30,22 @@ class web_info_():
         self.driver.get(self.website)
         self.driver.maximize_window()
 
+        ########################################################################################################################################
+
         self.action = ActionChains(self.driver)
         self.menu = self.driver.find_element(By.XPATH, value='//*[@id="header"]/div[1]/div[2]/div/div[2]/span[@class="icon_menu"]')
         self.action.move_to_element(self.menu)
         self.action.perform()
+
+        ########################################################################################################################################
 
         self.tag = self.driver.find_element(By.XPATH, value=f'//*[@id="header"]/div[1]/div[2]/div/div[2]/'
                                                             f'div[1]/div/div[1]/ul/li/a[@title="{book_tag}"]')
         self.action.move_to_element(self.tag)
         self.action.click()
         self.action.perform()
+
+        ########################################################################################################################################
 
         self.driver.implicitly_wait(15)
         self.more_choice = self.driver.find_element(By.XPATH, value='//*[@id="m-more-less-left_category"]/a[2]')
