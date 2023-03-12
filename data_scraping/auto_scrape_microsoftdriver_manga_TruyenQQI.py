@@ -1,10 +1,11 @@
+import time
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service
 import pandas as pd
 import os
 from datetime import datetime
 import sys
-
+import concurrent.futures
 global list_TruyenQQi
 
 app_path = os.path.dirname(sys.executable)
@@ -40,6 +41,7 @@ def scrape_TruyenQQI(website):
     topDay_manga_dict = {"titles": titles, "discripsion": discriptions, "lastest_Chap": lastest_chap_list,
                          "condition": conditions, "view": views, "follow": follows, "link ": links}
     topDay_manga_df = pd.DataFrame(topDay_manga_dict)
+    time.sleep(1.5)
     return topDay_manga_df
     pass
 def cleaning(df):
@@ -57,11 +59,28 @@ def merge_df(dataframes):
     return pd.concat(dataframes, axis=0)
     pass
 def scrape_TruyenQQi_s(list_url):
-    list_df = []
-    for url in list_url:
-        df = scrape_TruyenQQI(url)
-        list_df.append(df)
-    return list_df
+    # list_df = []
+    # for url in list_url:
+    #     df = scrape_TruyenQQI(url)
+    #     list_df.append(df)
+    # return list_df
+    threads = 4
+    df_list = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as pool:
+        future_to_website = {pool.submit(scrape_TruyenQQI, url): url for url in list_url}
+
+        for future in concurrent.futures.as_completed(future_to_website):
+            website = future_to_website[future]
+            try:
+                print("Scraping...")
+                df = future.result()
+            except Exception as e:
+                print(f"Scraping {website} failed with error: {e}")
+                pool.shutdown(wait=False)
+            else:
+                df_list.append(df)
+    pool.shutdown(wait=False)
+    return df_list
     pass
 def read_file(filename):
     data = []
@@ -76,7 +95,7 @@ def main():
     driver.quit()
 
 list_TruyenQQi = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_horror_truyenqqi.txt")
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_romance_truyenqqi.txt")
 # Multiple pages version:
 if __name__ == '__main__':
     main()

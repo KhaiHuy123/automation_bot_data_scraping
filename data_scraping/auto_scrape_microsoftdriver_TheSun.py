@@ -136,10 +136,10 @@ def main():
     driver.quit()
 
 list_women_heath = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                      "automation_bot_data_scraping\\data_scraping\\url_list\\woman_heath.txt")
+                       "automation_bot_data_scraping\\data_scraping\\url_list\\woman_heath.txt")
 list_men_heath = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                      "automation_bot_data_scraping\\data_scraping\\url_list\\man_heath.txt")
+                       "automation_bot_data_scraping\\data_scraping\\url_list\\man_heath.txt")
 list_world_news = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                      "automation_bot_data_scraping\\data_scraping\\url_list\\world_news.txt")
+                       "automation_bot_data_scraping\\data_scraping\\url_list\\world_news.txt")
 if __name__ == '__main__':
     main()

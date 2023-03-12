@@ -8,6 +8,7 @@ import os, random
 from bs4 import BeautifulSoup
 from datetime import datetime
 import sys
+import concurrent.futures
 
 global list_Nettruyen
 
@@ -120,14 +121,32 @@ def scrape_Nettruyen(website):
     topDay_manga_dict = {"titles": titles, "lastest_Chap": lastest_chap_list, "types": types, "views": views, "follows":follows,
                          "condition": conditions, "discription": discriptions, "teasers": teasers, "links ": links}
     topDay_manga_df = pd.DataFrame(topDay_manga_dict)
+    time.sleep(1.5)
     return topDay_manga_df
     pass
 def scrape_Nettuyen_s(list_url):
-    list_df = []
-    for url in list_url:
-        df = scrape_Nettruyen(url)
-        list_df.append(df)
-    return list_df
+    # list_df = []
+    # for url in list_url:
+    #     df = scrape_Nettruyen(url)
+    #     list_df.append(df)
+    # return list_df
+    threads = 4
+    df_list = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as pool:
+        future_to_website = {pool.submit(scrape_Nettruyen, url): url for url in list_url}
+
+        for future in concurrent.futures.as_completed(future_to_website):
+            website = future_to_website[future]
+            try:
+                print("Scraping...")
+                df = future.result()
+            except Exception as e:
+                print(f"Scraping {website} failed with error: {e}")
+                pool.shutdown(wait=False)
+            else:
+                df_list.append(df)
+    pool.shutdown(wait=False)
+    return df_list
     pass
 def cleaning(df):
     if type(df) == list:
@@ -156,7 +175,7 @@ def main():
     driver.quit()
 
 list_Nettruyen = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_nettruyen_.txt")
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_action_nettruyen.txt")
 # Multiple pages version:
 if __name__ == '__main__':
     main()

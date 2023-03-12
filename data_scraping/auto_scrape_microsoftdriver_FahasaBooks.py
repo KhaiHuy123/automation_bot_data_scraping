@@ -5,6 +5,7 @@ import pandas as pd
 import os
 from datetime import datetime
 import sys, time
+import concurrent.futures
 
 global list_Fahasa
 
@@ -100,14 +101,33 @@ def scrape_Fahasa(website):
     Fahasa_df['name_product'].fillna('NaN', inplace=True)
     Fahasa_df['discount'].fillna('-0%', inplace=True)
     Fahasa_df['officail_price'].fillna('0', inplace=True)
+    time.sleep(1.5)
     return Fahasa_df
     pass
 def scrape_Fahasa_s(list_url):
-    list_df = []
-    for url in list_url:
-        df = scrape_Fahasa(url)
-        list_df.append(df)
-    return list_df
+    # list_df = []
+    # for url in list_url:
+    #     df = scrape_Fahasa(url)
+    #     list_df.append(df)
+    # return list_df
+    threads = 3
+    df_list = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as pool:
+        future_to_website = {pool.submit(scrape_Fahasa, url): url for url in list_url}
+
+        for future in concurrent.futures.as_completed(future_to_website):
+            website = future_to_website[future]
+            try:
+                print("Scraping...")
+                df = future.result()
+            except Exception as e:
+                print(f"Scraping {website} failed with error: {e}")
+                pool.shutdown(wait=False)
+            else:
+                df_list.append(df)
+    pool.shutdown(wait=False)
+    return df_list
+
     pass
 def read_file(filename):
     data = []

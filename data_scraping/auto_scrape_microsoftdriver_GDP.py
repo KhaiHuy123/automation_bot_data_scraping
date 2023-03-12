@@ -95,7 +95,7 @@ def scrape_gdp(website):
     time.sleep(3.0)
     driver.set_page_load_timeout(20.0)
     driver.set_script_timeout(20.0)
-    ########################################################################################################################################
+    #######################################################################################################################################
 
     containers_contries= driver.find_elements(By.XPATH, '//table/tbody/tr/td[1]/a')
     print(len(containers_contries))

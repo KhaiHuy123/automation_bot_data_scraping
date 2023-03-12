@@ -5,6 +5,7 @@ import pandas as pd
 import os
 from datetime import datetime
 import sys, time
+import concurrent.futures
 
 global list_tiki
 
@@ -34,10 +35,10 @@ day_month_year = current_day.strftime("%d%m%y")
 def scrape_Tiki(website):
     driver.get(website)
     driver.fullscreen_window()
-    time.sleep(3)
-    driver.set_page_load_timeout(20.0)
-    driver.set_script_timeout(20.0)
-    for i in range(200):
+    time.sleep(2)
+    driver.set_page_load_timeout(10.0)
+    driver.set_script_timeout(10.0)
+    for i in range(190):
         driver.execute_script(f"window.scrollTo(0, {str(i)}00);")
 
     ########################################################################################################################################
@@ -93,14 +94,32 @@ def scrape_Tiki(website):
     tiki_df = pd.DataFrame(tiki_dict)
     tiki_df['discount'].fillna('-0%', inplace=True)
     tiki_df['saled'].fillna('0', inplace=True)
+    time.sleep(1.5)
     return tiki_df
     pass
 def scrape_Tiki_s(list_url):
-    list_df = []
-    for url in list_url:
-        df = scrape_Tiki(url)
-        list_df.append(df)
-    return list_df
+    # list_df = []
+    # for url in list_url:
+    #     df = scrape_Tiki(url)
+    #     list_df.append(df)
+    # return list_df
+    threads = 4
+    df_list = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as pool:
+        future_to_website = {pool.submit(scrape_Tiki, url): url for url in list_url}
+
+        for future in concurrent.futures.as_completed(future_to_website):
+            website = future_to_website[future]
+            try:
+                print("Scraping...")
+                df = future.result()
+            except Exception as e:
+                print(f"Scraping {website} failed with error: {e}")
+                pool.shutdown(wait=False)
+            else:
+                df_list.append(df)
+    pool.shutdown(wait=False)
+    return df_list
     pass
 def create_csv_file(df,file_name):
     file = f'{file_name}_{day_month_year}.csv'

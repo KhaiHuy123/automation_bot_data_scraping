@@ -8,6 +8,7 @@ import pandas as pd
 import os
 from datetime import datetime
 import sys, time
+import concurrent.futures
 
 global list_Shopee
 
@@ -82,10 +83,10 @@ def write_to_file(lst, filename):
 def scrape_Shopee(website):
     driver.get(website)
     driver.fullscreen_window()
-    time.sleep(3)
-    driver.set_page_load_timeout(20.0)
-    driver.set_script_timeout(20.0)
-    for i in range(250):
+    time.sleep(2)
+    driver.set_page_load_timeout(10.0)
+    driver.set_script_timeout(10.0)
+    for i in range(300):
         driver.execute_script(f"window.scrollTo(0, {str(i)}00);")
 
     ########################################################################################################################################
@@ -136,14 +137,32 @@ def scrape_Shopee(website):
     shopee_df = pd.DataFrame(shopee_dict)
     shopee_df['saled'].fillna('0', inplace=True)
     shopee_df['location'].fillna('unknown', inplace=True)
+    time.sleep(1.5)
     return shopee_df
     pass
 def scrape_Shopee_s(list_url):
-    list_df = []
-    for url in list_url:
-        df = scrape_Shopee(url)
-        list_df.append(df)
-    return list_df
+    # list_df = []
+    # for url in list_url:
+    #     df = scrape_Shopee(url)
+    #     list_df.append(df)
+    # return list_df
+    threads = 4
+    df_list = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as pool:
+        future_to_website = {pool.submit(scrape_Shopee, url): url for url in list_url}
+
+        for future in concurrent.futures.as_completed(future_to_website):
+            website = future_to_website[future]
+            try:
+                print("Scraping...")
+                df = future.result()
+            except Exception as e:
+                print(f"Scraping {website} failed with error: {e}")
+                pool.shutdown(wait=False)
+            else:
+                df_list.append(df)
+    pool.shutdown(wait=False)
+    return df_list
     pass
 ''''''
 def main():
@@ -153,7 +172,7 @@ def main():
     driver.quit()
 
 list_Shopee = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                        "automation_bot_data_scraping\\data_scraping\\url_list\\shopee_product.txt")
+                        "automation_bot_data_scraping\\data_scraping\\url_list\\shopee_product_female.txt")
 if __name__ == '__main__':
     main()
 ''''''

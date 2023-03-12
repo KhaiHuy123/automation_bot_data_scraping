@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.service import Service
 from datetime import datetime
 import sys, time, os, pandas as pd
+import concurrent.futures
 
 global list_Amazon
 
@@ -90,32 +91,43 @@ def scrape_Amazon(website):
     star_rate = [container_star.text for container_star in containers_star_rate]
 
     ########################################################################################################################################
-    price_xpath = '*//div[@class="a-row a-size-base a-color-base"]/a/span[@class="a-price"]/span[@aria-hidden="true"]'
-    container_prices = driver.find_elements(By.XPATH, price_xpath)
-    print(len(container_prices))
-    price = [container_price.text for container_price in container_prices]
 
-    ########################################################################################################################################
-
-    max_len = max(len(links), len(name_products), len(star_rate), len(author), len(price))
+    max_len = max(len(links), len(name_products), len(star_rate), len(author))
     links += [float('NaN')] * (max_len - len(links))
     name_products += [float('NaN')] * (max_len - len(name_products))
     star_rate += [float('NaN')] * (max_len - len(star_rate))
     author += [float('NaN')] * (max_len - len(author))
-    price += [float('NaN')] * (max_len - len(price))
-    amazon_dict = {"name_product": name_products, "star_rate": star_rate, "price": price,
+
+    amazon_dict = {"name_product": name_products, "star_rate": star_rate,
                    "author": author,  "link": links}
     amazon_df = pd.DataFrame(amazon_dict)
     amazon_df['star_rate'].fillna('unknown', inplace=True)
-    amazon_df['price'].fillna("0", inplace=True)
+    time.sleep(1.5)
     return amazon_df
     pass
 def scrape_Amazon_s(list_url):
-    list_df = []
-    for url in list_url:
-        df = scrape_Amazon(url)
-        list_df.append(df)
-    return list_df
+    # list_df = []
+    # for url in list_url:
+    #     df = scrape_Amazon(url)
+    #     list_df.append(df)
+    # return list_df
+    threads = 3
+    df_list = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as pool:
+        future_to_website = {pool.submit(scrape_Amazon, url): url for url in list_url}
+
+        for future in concurrent.futures.as_completed(future_to_website):
+            website = future_to_website[future]
+            try:
+                print("Scraping...")
+                df = future.result()
+            except Exception as e:
+                print(f"Scraping {website} failed with error: {e}")
+                pool.shutdown(wait=False)
+            else:
+                df_list.append(df)
+    pool.shutdown(wait=False)
+    return df_list
     pass
 
 def main():

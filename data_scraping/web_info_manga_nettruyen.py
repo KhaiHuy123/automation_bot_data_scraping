@@ -12,7 +12,7 @@ class web_info_():
         options.add_argument('--disable-popup-blocking')
         self.driver = webdriver.Edge(service=service, options=options)
         self.urls = []
-        self.website = "https://www.nettruyenup.com/"
+        self.website = "https://www.nettruyenvt.com/"
 
         self.driver.implicitly_wait(15)
 
