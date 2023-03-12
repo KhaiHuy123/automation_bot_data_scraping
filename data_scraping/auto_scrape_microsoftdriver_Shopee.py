@@ -85,24 +85,27 @@ def scrape_Shopee(website):
     time.sleep(3)
     driver.set_page_load_timeout(20.0)
     driver.set_script_timeout(20.0)
-    for i in range(300):
+    for i in range(250):
         driver.execute_script(f"window.scrollTo(0, {str(i)}00);")
 
     ########################################################################################################################################
 
-    containers_links = driver.find_elements(By.XPATH, '/html/body/div[1]/div/div[2]/div/div/div[4]/div[2]/div/div[2]/div/a')
+    containers_links = driver.find_elements(By.XPATH, '/html/body/div[1]/div/div[2]/div/div/div[@class="container iFOymg"]'
+                                                      '/div[2]/div/div[2]/div/a')
     print(len(containers_links))
     links = [container_link.get_attribute("href") for container_link in containers_links]
 
     ########################################################################################################################################
 
-    containers_name_products = driver.find_elements(By.XPATH, "/html/body/div[1]/div/div[2]/div/div/div[4]/div[2]/div/div[2]/div/a/div/div/div[2]/div[1]/div/div[@class='_1yN94N WoKSjC _2KkMCe']")
+    containers_name_products = driver.find_elements(By.XPATH, "/html/body/div[1]/div/div[2]/div/div/div[@class='container iFOymg']"
+                                                              "/div[2]/div/div[2]/div/a/div/div/div[2]/div[1]/div/div[@class='_1yN94N WoKSjC _2KkMCe']")
     print(len(containers_name_products))
     name_products = [container_name_product.text for container_name_product in containers_name_products]
 
     ########################################################################################################################################
 
-    containers_org_prices = driver.find_elements(By.XPATH, "/html/body/div[1]/div/div[2]/div/div/div[4]/div[2]/div/div[2]/div/a/div/div/div[2]/div[2]/div[1]")
+    containers_org_prices = driver.find_elements(By.XPATH, "/html/body/div[1]/div/div[2]/div/div/div[@class='container iFOymg']"
+                                                           "/div[2]/div/div[2]/div/a/div/div/div[2]/div[2]/div[1]")
     print(len(containers_org_prices))
     org_prices = [container_org_price.text for container_org_price in containers_org_prices]
 
