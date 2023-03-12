@@ -30,14 +30,14 @@ class web_info_():
         self.driver.get(self.website)
         self.driver.maximize_window()
 
-        ########################################################################################################################################
+        #######################################################################################################################################
 
         self.action = ActionChains(self.driver)
         self.menu = self.driver.find_element(By.XPATH, value='//*[@id="header"]/div[1]/div[2]/div/div[2]/span[@class="icon_menu"]')
         self.action.move_to_element(self.menu)
         self.action.perform()
 
-        ########################################################################################################################################
+        #######################################################################################################################################
 
         self.tag = self.driver.find_element(By.XPATH, value=f'//*[@id="header"]/div[1]/div[2]/div/div[2]/'
                                                             f'div[1]/div/div[1]/ul/li/a[@title="{book_tag}"]')
@@ -45,7 +45,7 @@ class web_info_():
         self.action.click()
         self.action.perform()
 
-        ########################################################################################################################################
+        #######################################################################################################################################
 
         self.driver.implicitly_wait(15)
         self.more_choice = self.driver.find_element(By.XPATH, value='//*[@id="m-more-less-left_category"]/a[2]')
@@ -53,22 +53,32 @@ class web_info_():
         self.action.click()
         self.action.perform()
 
+        #######################################################################################################################################
+
         self.group_by = self.driver.find_element(By.XPATH,
         value='//*[@id="wrapper"]/div[2]/div[1]/div/div[2]/div/div/div[2]/div/div[5]/div[4]/div[1]/div/div[2]/div/div/div/div')
         self.action.move_to_element(self.group_by)
         self.action.click()
         self.action.perform()
 
+        #######################################################################################################################################
+
         self.choose_group_by = self.driver.find_element(By.XPATH,
         value='//*[@id="wrapper"]/div[2]/div[1]/div/div[2]/div/div/div[2]/div/div[5]/div[4]/div[1]/div/div[2]/div/div/div/div/div/span[@value="48"]')
         self.action.move_to_element(self.choose_group_by)
         self.action.click()
         self.action.perform()
+
+        #######################################################################################################################################
+
         time.sleep(2)
         self.choice = self.driver.find_element(By.XPATH, value=f'//*[@id="children-categories"]/li/a[@title="{book_type}"]')
         self.action.move_to_element(self.choice)
         self.action.click()
         self.action.perform()
+
+        #######################################################################################################################################
+
         current_page = self.driver.current_url
         return current_page
         pass

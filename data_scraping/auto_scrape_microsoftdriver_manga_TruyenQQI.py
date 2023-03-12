@@ -69,11 +69,14 @@ def read_file(filename):
         for line in file:
             data.append(line.strip())
     return data
-list_TruyenQQi = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_horror_truyenqqi.txt")
-# Multiple pages version:
-if __name__ == '__main__':
+def main():
     df_TruyenQQI = scrape_TruyenQQi_s(list_TruyenQQi)
     final_dataframe_TruyenQQI = merge_df(df_TruyenQQI)
     create_csv_file(final_dataframe_TruyenQQI, file_name="topDayTruyenQQi")
     driver.quit()
+
+list_TruyenQQi = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_horror_truyenqqi.txt")
+# Multiple pages version:
+if __name__ == '__main__':
+    main()

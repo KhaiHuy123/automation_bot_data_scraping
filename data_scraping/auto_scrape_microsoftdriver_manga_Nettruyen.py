@@ -149,11 +149,14 @@ def read_file(filename):
         for line in file:
             data.append(line.strip())
     return data
-list_Nettruyen = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_nettruyen_.txt")
-# Multiple pages version:
-if __name__ == '__main__':
+def main():
     df_Nettuyen = scrape_Nettuyen_s(list_Nettruyen)
     final_dataframe_Nettruyen = merge_df(df_Nettuyen)
     create_csv_file(final_dataframe_Nettruyen, file_name="topDayNettruyen")
     driver.quit()
+
+list_Nettruyen = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\manga_nettruyen_.txt")
+# Multiple pages version:
+if __name__ == '__main__':
+    main()

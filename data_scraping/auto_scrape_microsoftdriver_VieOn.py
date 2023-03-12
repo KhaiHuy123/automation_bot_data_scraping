@@ -101,10 +101,13 @@ def read_file(filename):
         for line in file:
             data.append(line.strip())
     return data
-list_VieOn = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                      "automation_bot_data_scraping\\data_scraping\\url_list\\vieon_films.txt")
-if __name__ == '__main__':
+def main():
     df_VieOn = scrape_VieOn_s(list_VieOn)
     final_dataframe_VieOn = merge_df(df_VieOn)
     create_csv_file(final_dataframe_VieOn, file_name="VieOn")
     driver.quit()
+
+list_VieOn = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                      "automation_bot_data_scraping\\data_scraping\\url_list\\vieon_films.txt")
+if __name__ == '__main__':
+    main()

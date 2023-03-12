@@ -93,8 +93,8 @@ def scrape_gdp(website):
     driver.get(website)
     driver.fullscreen_window()
     time.sleep(3.0)
-    driver.set_page_load_timeout(80.0)
-    driver.set_script_timeout(80.0)
+    driver.set_page_load_timeout(20.0)
+    driver.set_script_timeout(20.0)
     ########################################################################################################################################
 
     containers_contries= driver.find_elements(By.XPATH, '//table/tbody/tr/td[1]/a')
@@ -207,8 +207,7 @@ def create_csv_file(df,file_name):
 def merge_df(dataframes):
     return pd.concat(dataframes, axis=0)
     pass
-
-if __name__ == '__main__':
+def main():
     df_woirld_gdp = scrape_gdp(website=world_gdp)
     df_america_gdp = scrape_gdp(website=america_gdp)
     df_eu_gdp = scrape_gdp(website=eu_gdp)
@@ -218,4 +217,7 @@ if __name__ == '__main__':
     create_csv_file(df_eu_gdp, file_name="EU_gdp")
     create_csv_file(df_asia_gdp, file_name="ASIA_gdp")
     driver.quit()
+
+if __name__ == '__main__':
+    main()
     

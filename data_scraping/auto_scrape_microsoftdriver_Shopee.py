@@ -146,12 +146,14 @@ def scrape_Shopee_s(list_url):
     return list_df
     pass
 ''''''
-
-list_Shopee = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                        "automation_bot_data_scraping\\data_scraping\\url_list\\shopee_product.txt")
-if __name__ == '__main__':
+def main():
     df_Shopee = scrape_Shopee_s(list_Shopee)
     final_dataframe_Shopee = merge_df(df_Shopee)
     create_csv_file(final_dataframe_Shopee, file_name="Info_Shopee_Product")
     driver.quit()
+
+list_Shopee = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                        "automation_bot_data_scraping\\data_scraping\\url_list\\shopee_product.txt")
+if __name__ == '__main__':
+    main()
 ''''''

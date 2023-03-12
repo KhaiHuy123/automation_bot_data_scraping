@@ -6,7 +6,7 @@ import os
 from datetime import datetime
 import sys, time
 
-global list_tiki
+global list_Fahasa
 
 path = "D:\microsoftdriver_autotest_110\msedgedriver.exe"
 service = Service(executable_path=path)
@@ -31,7 +31,20 @@ app_path = os.path.dirname(sys.executable)
 current_day = datetime.now()
 day_month_year = current_day.strftime("%d%m%y")
 
-def scrape_Tiki(website):
+def cleaning(df):
+    df.drop_duplicates(inplace=True)
+    df.drop_duplicates(subset=['price', "discount"], inplace=True)
+    return df
+    pass
+def create_csv_file(df,file_name):
+    file = f'{file_name}_Books_{day_month_year}.csv'
+    file_export = os.path.join(app_path, file)
+    df.to_csv(file_export, header=False, encoding="utf-8", index=False)
+    pass
+def merge_df(dataframes):
+    return pd.concat(dataframes)
+    pass
+def scrape_Fahasa(website):
     driver.get(website)
     driver.fullscreen_window()
     time.sleep(3)
@@ -42,78 +55,59 @@ def scrape_Tiki(website):
 
     ########################################################################################################################################
 
-    containers_links = driver.find_elements(By.XPATH, '//*[@class="product-item"]')
+    containers_links = driver.find_elements(By.XPATH, '//*[@id="products_grid"]/li/div/div[@class="ma-box-content"]/div[1]/div/a')
     print(len(containers_links))
     links = [container_link.get_attribute("href") for container_link in containers_links]
 
     ########################################################################################################################################
 
-    containers_name_products = driver.find_elements(By.XPATH, '//*[@class="product-item"]/div/span/div[@class="info"]/div[1]')
+    containers_name_products = driver.find_elements(By.XPATH, '//*[@id="products_grid"]/li/div/div[@class="ma-box-content"]/h2/a')
     print(len(containers_name_products))
     name_products = [container_name_product.text for container_name_product in containers_name_products]
 
     ########################################################################################################################################
 
-    containers_org_prices = driver.find_elements(By.XPATH, "//*[@class='product-item']/div/span/div[@class='info']/div[3]/div[@class='price-discount__price']")
-    print(len(containers_org_prices))
-    org_prices = [container_org_price.text for container_org_price in containers_org_prices]
+    containers_official_prices = driver.find_elements(By.XPATH, "//*[@id='products_grid']/li/div/div[@class='ma-box-content']/div[@class='price-label']//*[@class='special-price']")
+    print(len(containers_official_prices))
+    official_prices = [containers_official_price.text for containers_official_price in containers_official_prices]
 
     ########################################################################################################################################
 
-    containers_discounts = driver.find_elements(By.CSS_SELECTOR, ".price-discount__discount")
+    containers_discounts = driver.find_elements(By.XPATH, "//*[@id='products_grid']/li/div/div[@class='label-pro-sale m-label-pro-sale']/span")
     print(len(containers_discounts))
     discounts = [containers_discount.text for containers_discount in containers_discounts]
 
     ########################################################################################################################################
 
-    containers_saled_products = driver.find_elements(By.XPATH, "//*[@class='product-item']/div/span/div[@class='info']/div[2]/div[@class='styles__StyledQtySold-sc-732h27-2 fCfYNm']")
-    print(len(containers_saled_products))
-    saled_products = [container_saled_product.text for container_saled_product in containers_saled_products]
-
-    ########################################################################################################################################
-
-    containers_images = driver.find_elements(By.XPATH, "//*[@class='product-item']/div/span/div/div[@class='image-wrapper']/picture/img")
+    containers_images = driver.find_elements(By.XPATH, "//*[@id='products_grid']/li/div/div[@class='ma-box-content']/div[1]/div/a/span/img")
     print(len(containers_images))
     images = [container_image.get_attribute("src") for container_image in containers_images]
 
     ########################################################################################################################################
 
-    max_len = max(len(links), len(name_products), len(images), len(org_prices), len(saled_products), len(discounts))
+    max_len = max(len(links), len(name_products), len(images), len(official_prices), len(discounts))
 
     links += [float('NaN')] * (max_len - len(links))
     name_products += [float('NaN')] * (max_len - len(name_products))
     images += [float('NaN')] * (max_len - len(images))
-    org_prices += [float('NaN')] * (max_len - len(org_prices))
-    saled_products += [float('NaN')] * (max_len - len(saled_products))
+    official_prices += [float('NaN')] * (max_len - len(official_prices))
     discounts += [float('NaN')] * (max_len - len(discounts))
 
-    tiki_dict = {"name_product": name_products,
-               "price_org": org_prices, "discount": discounts,
-               "saled": saled_products, "image": images, "link": links}
-    tiki_df = pd.DataFrame(tiki_dict)
-    tiki_df['discount'].fillna('-0%', inplace=True)
-    tiki_df['saled'].fillna('0', inplace=True)
-    return tiki_df
+    Fahasa_dict = {"name_product": name_products,
+               "officail_price": official_prices, "discount": discounts,
+               "image": images, "link": links}
+    Fahasa_df = pd.DataFrame(Fahasa_dict)
+    Fahasa_df['name_product'].fillna('NaN', inplace=True)
+    Fahasa_df['discount'].fillna('-0%', inplace=True)
+    Fahasa_df['officail_price'].fillna('0', inplace=True)
+    return Fahasa_df
     pass
-def scrape_Tiki_s(list_url):
+def scrape_Fahasa_s(list_url):
     list_df = []
     for url in list_url:
-        df = scrape_Tiki(url)
+        df = scrape_Fahasa(url)
         list_df.append(df)
     return list_df
-    pass
-def create_csv_file(df,file_name):
-    file = f'{file_name}_{day_month_year}.csv'
-    file_export = os.path.join(app_path, file)
-    df.to_csv(file_export, header=True, encoding="utf-8", index=False)
-    pass
-def merge_df(dataframes):
-    return pd.concat(dataframes, axis=0)
-    pass
-def cleaning(df):
-    if type(df) == list:
-        return df.drop_duplicates()
-    return df
     pass
 def read_file(filename):
     data = []
@@ -126,12 +120,12 @@ def write_to_file(lst, filename):
         for item in lst:
             f.write(str(item) + '\n')
 def main():
-    df_Tiki = scrape_Tiki_s(list_tiki)
-    final_dataframe_Tiki = merge_df(df_Tiki)
-    create_csv_file(final_dataframe_Tiki, file_name="Info_Tiki_Product")
+    df_Fahasa = scrape_Fahasa_s(list_Fahasa)
+    final_dataframe_Fahasa = merge_df(df_Fahasa)
+    create_csv_file(final_dataframe_Fahasa, file_name="Info_Fahasa")
     driver.quit()
 
-list_tiki = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
-                      "automation_bot_data_scraping\\data_scraping\\url_list\\tiki_product_smart_digital.txt")
+list_Fahasa = read_file("C:\\Users\\HTH\\PycharmProjects\\another_project_test\\"
+                        "automation_bot_data_scraping\\data_scraping\\url_list\\fahasa_books_children.txt")
 if __name__ == '__main__':
     main()

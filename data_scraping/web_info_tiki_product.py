@@ -30,11 +30,15 @@ class web_info_():
         self.driver.get(self.website)
         self.driver.maximize_window()
 
+        #######################################################################################################################################
+
         self.action = ActionChains(self.driver)
         self.tag = self.driver.find_element(By.XPATH, value=f'//*[@id="__next"]/div[1]/main/div/div/div[1]/div[2]/a[@title="{product_tag}"]')
         self.action.move_to_element(self.tag)
         self.action.click()
         self.action.perform()
+
+        #######################################################################################################################################
 
         text_to_find = f"{product_type}"
         xpath_expression = "//*[@id='__next']/div[1]/main/div[2]/div[1]/div[1]/div[1]/div/div/a [contains(text(), '{}')]".format(text_to_find)

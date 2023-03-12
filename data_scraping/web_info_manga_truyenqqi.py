@@ -30,6 +30,8 @@ class web_info_():
         self.driver.maximize_window()
         time.sleep(2)
 
+        #######################################################################################################################################
+
         self.action = ActionChains(self.driver)
         self.driver.implicitly_wait(15)
         self.find_ = self.driver.find_element(By.XPATH,

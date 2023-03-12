@@ -32,6 +32,8 @@ class web_info_():
         self.driver.maximize_window()
         self.action = ActionChains(self.driver)
 
+        #######################################################################################################################################
+
         self.driver.implicitly_wait(15)
         tag_to_find = f"{product_tag}"
         tag_xpath_expression =\
@@ -41,11 +43,15 @@ class web_info_():
         self.tag_choice = self.driver.find_element(By.XPATH, value=tag_xpath_expression)
         self.tag_choice.click()
 
+        #######################################################################################################################################
+
         self.more_type_option = self.driver.find_element(By.XPATH,
         value='//*[@id="main"]/div/div[2]/div/div/div[4]/div[1]/div[1]/div/div/div[2]/div/div[1]/div')
         self.action.move_to_element(self.more_type_option)
         self.action.click()
         self.action.perform()
+
+        #######################################################################################################################################
 
         self.driver.implicitly_wait(15)
         try:
@@ -62,11 +68,15 @@ class web_info_():
             self.type_choice = self.driver.find_element(By.XPATH, value=type_xpath_expression).get_attribute("href")
         self.driver.get(self.type_choice)
 
+        #######################################################################################################################################
+
         self.move_to_lastest_area = self.driver.find_element(By.XPATH,
         value='//*[@id="main"]/div/div[2]/div/div/div[3]/div[2]/div/div[1]/div[1]/div[2]')
         self.action.move_to_element(self.move_to_lastest_area)
         self.action.click()
         self.action.perform()
+
+        #######################################################################################################################################
 
         current_page = self.driver.current_url
         return current_page
